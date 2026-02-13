@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
+    "@tailwindcss/cli": "^4.1.11",
+    "locomotive-scroll": "^4.1.4",
+    "tailwindcss": "^4.1.11"
+  },
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./dist/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4"
+  }
+}
