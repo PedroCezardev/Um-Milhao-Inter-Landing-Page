@@ -336,7 +336,6 @@
   }
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
-    vertical-align: middle;
   }
   img, video {
     max-width: 100%;
@@ -1489,6 +1488,7 @@ html {
 .text-gradient-orange {
   background: linear-gradient(90deg, #ff8f3a, #ff6f00);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .bg-primary {

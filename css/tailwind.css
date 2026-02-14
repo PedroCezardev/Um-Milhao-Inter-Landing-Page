@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
- --color-primaria: #ff7900;
+  --color-primaria: #ff7900;
   --color-secundaria: #ff7900;
   --primary-color: #ff7900;
   --primary-hover: #e46e00;
@@ -100,24 +100,51 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
 }
 
 
-html{
-    font-family: var(--font-family);
+html {
+  font-family: var(--font-family);
 }
 
-    .bg-inter-darker { background: #0c0d10; }
-    .bg-inter-dark { background: #16171b; }
-    .bg-inter-gray { background: #26272d; }
-    .text-primary-foreground { color: #ffffff; }
-    .text-muted-foreground { color: #9ca3af; }
-    .bg-gradient-orange { background: linear-gradient(90deg, #ff8f3a, #ff6f00); }
-    .text-gradient-orange { background: linear-gradient(90deg, #ff8f3a, #ff6f00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .bg-primary { background: #ff6f00; }
+.bg-inter-darker {
+  background: #0c0d10;
+}
+
+.bg-inter-dark {
+  background: #16171b;
+}
+
+.bg-inter-gray {
+  background: #26272d;
+}
+
+.text-primary-foreground {
+  color: #ffffff;
+}
+
+.text-muted-foreground {
+  color: #9ca3af;
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(90deg, #ff8f3a, #ff6f00);
+}
+
+.text-gradient-orange {
+  background: linear-gradient(90deg, #ff8f3a, #ff6f00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-primary {
+  background: #ff6f00;
+}
 
 .benefits-section {
   background: #141414;
@@ -534,7 +561,7 @@ html{
   padding: 1.5rem;
   border-radius: 1rem;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
   display: flex;
   align-items: center;
   gap: .5rem;
@@ -567,7 +594,7 @@ html{
   border-radius: 9999px;
   font-weight: 700;
   font-size: .9rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
 }
 
 .cta-btn:hover {
@@ -586,7 +613,7 @@ html{
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.10);
+  background: rgba(0, 0, 0, 0.10);
   z-index: 0;
 }
 
@@ -606,6 +633,7 @@ html{
 .fade-left {
   transform: translateX(-50px);
 }
+
 .fade-left.visible {
   opacity: 1;
   transform: translateX(0);
@@ -615,6 +643,7 @@ html{
   transform: translateY(30px);
   transition-delay: var(--delay);
 }
+
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
@@ -623,8 +652,8 @@ html{
 /* ---- Card ---- */
 
 .glass-card {
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1.75rem;
   backdrop-filter: blur(10px);
   border-radius: 1rem;

@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
   const tracks = document.querySelectorAll('.velocity-track');
-  
+
   if (tracks.length > 0) {
     let scrollVelocity = 0;
     const baseSpeed = 1.5; // Velocidade do texto quando você NÃO está scrollando
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       end: "bottom bottom",
       onUpdate: (self) => {
         // Captura a velocidade do scroll e suaviza o número
-        scrollVelocity = self.getVelocity() / 300; 
+        scrollVelocity = self.getVelocity() / 300;
       }
     });
 
@@ -120,18 +120,18 @@ document.addEventListener("DOMContentLoaded", () => {
     tracks.forEach((track) => {
       const direction = parseFloat(track.getAttribute('data-direction')); // 1 ou -1
       let xPos = 0;
-      
+
       // Duplicamos o conteúdo para criar a ilusão de loop infinito sem buracos
       const originalContent = track.innerHTML;
       track.innerHTML = originalContent + originalContent + originalContent;
-      
+
       gsap.ticker.add(() => {
         // Damping: faz a velocidade extra do scroll desacelerar suavemente
-        scrollVelocity *= 0.9; 
-        
+        scrollVelocity *= 0.9;
+
         // A velocidade de movimento do frame atual
         let move = (baseSpeed + Math.abs(scrollVelocity)) * direction;
-        
+
         // Se a pessoa rolar rápido para CIMA, inverte o sentido temporariamente
         if (scrollVelocity < -0.1) {
           move = (baseSpeed + Math.abs(scrollVelocity)) * -direction;
@@ -142,13 +142,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Lógica de reset para o loop infinito
         // Usa 1/3 do tamanho pois triplicamos o conteúdo
         let thirdWidth = track.scrollWidth / 3;
-        
+
         if (xPos < -thirdWidth) {
           xPos = 0;
         } else if (xPos > 0) {
           xPos = -thirdWidth;
         }
-        
+
         gsap.set(track, { x: xPos });
       });
     });
@@ -157,81 +157,81 @@ document.addEventListener("DOMContentLoaded", () => {
 /* FIM DO BLOCO DE CODIGO */
 
 /* --- Sticky Scroll Carousel --- */
-(function() {
-    // Array de palavras adaptado para vendas do banco Inter
-    const words = [
-      "Digital",
-      "Seguro",
-      "Inovador",
-      "Sem Taxas",
-      "O Super App"
-    ];
+(function () {
+  // Array de palavras adaptado para vendas do banco Inter
+  const words = [
+    "Digital",
+    "Seguro",
+    "Inovador",
+    "Sem Taxas",
+    "O Super App"
+  ];
 
-    const track = document.getElementById('stScrollTrack');
-    const wordList = document.getElementById('stWordList');
-    const wrapper = document.getElementById('stDynamicWrapper');
-    const widthTester = document.getElementById('stWidthTester');
+  const track = document.getElementById('stScrollTrack');
+  const wordList = document.getElementById('stWordList');
+  const wrapper = document.getElementById('stDynamicWrapper');
+  const widthTester = document.getElementById('stWidthTester');
 
-    if(!track || !wordList) return;
+  if (!track || !wordList) return;
 
-    // 1. Configuração Inicial
-    let maxWordWidth = 0;
+  // 1. Configuração Inicial
+  let maxWordWidth = 0;
 
-    words.forEach(word => {
-      const div = document.createElement('div');
-      div.className = 'st-word-item';
-      div.innerText = word;
-      wordList.appendChild(div);
+  words.forEach(word => {
+    const div = document.createElement('div');
+    div.className = 'st-word-item';
+    div.innerText = word;
+    wordList.appendChild(div);
 
-      widthTester.textContent = word;
-      const w = widthTester.offsetWidth;
-      if (w > maxWordWidth) maxWordWidth = w;
+    widthTester.textContent = word;
+    const w = widthTester.offsetWidth;
+    if (w > maxWordWidth) maxWordWidth = w;
+  });
+
+  // Ajusta a largura para não dar soco no layout
+  setTimeout(() => {
+    wrapper.style.width = (maxWordWidth + 20) + 'px';
+  }, 100);
+
+  const items = wordList.querySelectorAll('.st-word-item');
+  const total = words.length;
+
+  // 2. Lógica do Scroll
+  function handleScroll() {
+    const rect = track.getBoundingClientRect();
+    const trackHeight = rect.height;
+    const windowHeight = window.innerHeight;
+
+    const scrolled = -rect.top;
+    const scrollableDistance = trackHeight - windowHeight;
+
+    let progress = scrolled / scrollableDistance;
+    progress = Math.max(0, Math.min(1, progress));
+
+    const rawIndex = progress * (total - 1);
+    const activeIndex = Math.round(rawIndex);
+
+    const itemHeight = items[0].offsetHeight;
+    wordList.style.transform = `translateY(-${activeIndex * itemHeight}px)`;
+
+    items.forEach((item, index) => {
+      if (index === activeIndex) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
     });
+  }
 
-    // Ajusta a largura para não dar soco no layout
-    setTimeout(() => {
-      wrapper.style.width = (maxWordWidth + 20) + 'px';
-    }, 100);
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  handleScroll();
 
-    const items = wordList.querySelectorAll('.st-word-item');
-    const total = words.length;
-
-    // 2. Lógica do Scroll
-    function handleScroll() {
-      const rect = track.getBoundingClientRect();
-      const trackHeight = rect.height;
-      const windowHeight = window.innerHeight;
-      
-      const scrolled = -rect.top;
-      const scrollableDistance = trackHeight - windowHeight;
-
-      let progress = scrolled / scrollableDistance;
-      progress = Math.max(0, Math.min(1, progress));
-
-      const rawIndex = progress * (total - 1);
-      const activeIndex = Math.round(rawIndex);
-
-      const itemHeight = items[0].offsetHeight;
-      wordList.style.transform = `translateY(-${activeIndex * itemHeight}px)`;
-
-      items.forEach((item, index) => {
-        if (index === activeIndex) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
-    handleScroll();
-    
-    // Atualiza os ícones do Lucide para a setinha aparecer
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
-  })();
+  // Atualiza os ícones do Lucide para a setinha aparecer
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+})();
 /* FIM DO BLOCO DE CODIGO */
 
 function animateTimelineProgress(items, progressBar) {
@@ -700,251 +700,251 @@ gsap.to(image, {
 });
 
 
-  gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
+
+// =========================
+// ELEMENTOS
+// =========================
+const sectionContainer = document.querySelector(".animated-section");
+const logoElement = sectionContainer.querySelector(".hero-logo");
+const titleElement = sectionContainer.querySelector(".hero-title");
+const textElement = sectionContainer.querySelector(".hero-text");
+const cardsElements = sectionContainer.querySelectorAll(".glass-card");
+
+// =========================
+// ESTADO INICIAL (IMPORTANTE PRA NÃO TRAVAR)
+// =========================
+gsap.set([logoElement, titleElement, textElement], {
+  opacity: 0,
+  y: 30
+});
+
+gsap.set(cardsElements, {
+  opacity: 0,
+  y: 40,
+  scale: 0.96
+});
+
+// =========================
+// TIMELINE PRINCIPAL
+// =========================
+const mainTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: sectionContainer,
+    start: "top 75%",
+    end: "bottom 60%",
+    toggleActions: "play none none reverse"
+  },
+  defaults: {
+    ease: "power3.out"
+  }
+});
+
+mainTimeline
+  // Logo
+  .to(logoElement, {
+    opacity: 1,
+    y: 0,
+    duration: 0.9
+  })
+
+  // Título
+  .to(titleElement, {
+    opacity: 1,
+    y: 0,
+    duration: 1.1
+  }, "-=0.6")
+
+  // Texto
+  .to(textElement, {
+    opacity: 1,
+    y: 0,
+    duration: 0.9
+  }, "-=0.7")
+
+  // Cards (stagger premium)
+  .to(cardsElements, {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    duration: 0.9,
+    stagger: {
+      each: 0.12,
+      from: "start"
+    }
+  }, "-=0.4");
+
+// =========================
+// MICRO INTERAÇÃO (ELEGANTE)
+// =========================
+cardsElements.forEach(card => {
+  card.addEventListener("mouseenter", () => {
+    gsap.to(card, {
+      y: -8,
+      scale: 1.02,
+      duration: 0.35,
+      ease: "power2.out"
+    });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    gsap.to(card, {
+      y: 0,
+      scale: 1,
+      duration: 0.35,
+      ease: "power2.out"
+    });
+  });
+});
+
+
+(() => {
+  const sectMockupApp = document.querySelector("#sect-moc");
+  const mockupPhoneEl = document.querySelector("#phoneMockup");
+  const mockupContentEl = document.querySelector("#contentBlock");
+
+  const tlMockupApp = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectMockupApp,
+      start: "top 70%",
+    },
+  });
+
+  tlMockupApp.from(mockupPhoneEl, {
+    opacity: 0,
+    y: 60,
+    scale: 0.95,
+    duration: 1.2,
+    ease: "power3.out",
+  });
+
+  tlMockupApp.from(
+    mockupContentEl.children,
+    {
+      opacity: 0,
+      y: 30,
+      stagger: 0.12,
+    },
+    "-=0.6",
+  );
+})();
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+// =========================
+// SECTION ESPECÍFICA
+// =========================
+const partnersCarouselSection = document.querySelector(".carousel-section");
+
+if (partnersCarouselSection) {
+
+  const partnersTitleWrapper = partnersCarouselSection.querySelector(".title-wrapper");
+  const partnersTitle = partnersCarouselSection.querySelector("h2");
+  const partnersLines = partnersCarouselSection.querySelectorAll(".line");
+  const partnersSubtitle = partnersCarouselSection.querySelector(".subtitle");
+  const partnersCarouselTrack = partnersCarouselSection.querySelector(".carousel-track");
 
   // =========================
-  // ELEMENTOS
+  // ESTADO INICIAL
   // =========================
-  const sectionContainer = document.querySelector(".animated-section");
-  const logoElement = sectionContainer.querySelector(".hero-logo");
-  const titleElement = sectionContainer.querySelector(".hero-title");
-  const textElement = sectionContainer.querySelector(".hero-text");
-  const cardsElements = sectionContainer.querySelectorAll(".glass-card");
+  gsap.set(partnersLines, {
+    scaleX: 0,
+    transformOrigin: "center"
+  });
 
-  // =========================
-  // ESTADO INICIAL (IMPORTANTE PRA NÃO TRAVAR)
-  // =========================
-  gsap.set([logoElement, titleElement, textElement], {
+  gsap.set(partnersTitle, {
     opacity: 0,
     y: 30
   });
 
-  gsap.set(cardsElements, {
+  gsap.set(partnersSubtitle, {
     opacity: 0,
-    y: 40,
-    scale: 0.96
+    y: 20
+  });
+
+  gsap.set(partnersCarouselTrack, {
+    opacity: 0,
+    y: 40
   });
 
   // =========================
-  // TIMELINE PRINCIPAL
+  // TIMELINE DE ENTRADA
   // =========================
-  const mainTimeline = gsap.timeline({
+  const partnersIntroTimeline = gsap.timeline({
     scrollTrigger: {
-      trigger: sectionContainer,
+      trigger: partnersCarouselSection,
       start: "top 75%",
-      end: "bottom 60%",
-      toggleActions: "play none none reverse"
+      toggleActions: "play none none none",
+      once: true
     },
     defaults: {
       ease: "power3.out"
     }
   });
 
-  mainTimeline
-    // Logo
-    .to(logoElement, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9
+  partnersIntroTimeline
+    // Linhas laterais
+    .to(partnersLines, {
+      scaleX: 1,
+      duration: 0.8,
+      stagger: 0.15
     })
 
     // Título
-    .to(titleElement, {
+    .to(partnersTitle, {
       opacity: 1,
       y: 0,
-      duration: 1.1
-    }, "-=0.6")
+      duration: 0.8
+    }, "-=0.4")
 
-    // Texto
-    .to(textElement, {
+    // Subtítulo
+    .to(partnersSubtitle, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6
+    }, "-=0.4")
+
+    // Carrossel
+    .to(partnersCarouselTrack, {
       opacity: 1,
       y: 0,
       duration: 0.9
-    }, "-=0.7")
-
-    // Cards (stagger premium)
-    .to(cardsElements, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.9,
-      stagger: {
-        each: 0.12,
-        from: "start"
-      }
-    }, "-=0.4");
+    }, "-=0.3");
 
   // =========================
-  // MICRO INTERAÇÃO (ELEGANTE)
+  // MICRO FLOAT NO CARROSSEL
   // =========================
-  cardsElements.forEach(card => {
-    card.addEventListener("mouseenter", () => {
-      gsap.to(card, {
-        y: -8,
-        scale: 1.02,
-        duration: 0.35,
-        ease: "power2.out"
+  ScrollTrigger.create({
+    trigger: partnersCarouselSection,
+    start: "top 70%",
+    once: true,
+    onEnter: () => {
+      gsap.to(partnersCarouselTrack, {
+        y: -10,
+        duration: 3.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true
       });
-    });
-
-    card.addEventListener("mouseleave", () => {
-      gsap.to(card, {
-        y: 0,
-        scale: 1,
-        duration: 0.35,
-        ease: "power2.out"
-      });
-    });
+    }
   });
 
+}
 
-  (() => {
-    const sectMockupApp = document.querySelector("#sect-moc");
-    const mockupPhoneEl = document.querySelector("#phoneMockup");
-    const mockupContentEl = document.querySelector("#contentBlock");
+document.addEventListener('DOMContentLoaded', function () {
+  const lenis = new Lenis({
+    duration: 1.2,
+  })
 
-    const tlMockupApp = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectMockupApp,
-        start: "top 70%",
-      },
-    });
+  lenis.on('scroll', (e) => {
+    console.log(e)
+  })
 
-    tlMockupApp.from(mockupPhoneEl, {
-      opacity: 0,
-      y: 60,
-      scale: 0.95,
-      duration: 1.2,
-      ease: "power3.out",
-    });
-
-    tlMockupApp.from(
-      mockupContentEl.children,
-      {
-        opacity: 0,
-        y: 30,
-        stagger: 0.12,
-      },
-      "-=0.6",
-    );
-  })();
-
-  
-  gsap.registerPlugin(ScrollTrigger);
-
-  // =========================
-  // SECTION ESPECÍFICA
-  // =========================
-  const partnersCarouselSection = document.querySelector(".carousel-section");
-
-  if (partnersCarouselSection) {
-
-    const partnersTitleWrapper = partnersCarouselSection.querySelector(".title-wrapper");
-    const partnersTitle = partnersCarouselSection.querySelector("h2");
-    const partnersLines = partnersCarouselSection.querySelectorAll(".line");
-    const partnersSubtitle = partnersCarouselSection.querySelector(".subtitle");
-    const partnersCarouselTrack = partnersCarouselSection.querySelector(".carousel-track");
-
-    // =========================
-    // ESTADO INICIAL
-    // =========================
-    gsap.set(partnersLines, {
-      scaleX: 0,
-      transformOrigin: "center"
-    });
-
-    gsap.set(partnersTitle, {
-      opacity: 0,
-      y: 30
-    });
-
-    gsap.set(partnersSubtitle, {
-      opacity: 0,
-      y: 20
-    });
-
-    gsap.set(partnersCarouselTrack, {
-      opacity: 0,
-      y: 40
-    });
-
-    // =========================
-    // TIMELINE DE ENTRADA
-    // =========================
-    const partnersIntroTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: partnersCarouselSection,
-        start: "top 75%",
-        toggleActions: "play none none none",
-        once: true
-      },
-      defaults: {
-        ease: "power3.out"
-      }
-    });
-
-    partnersIntroTimeline
-      // Linhas laterais
-      .to(partnersLines, {
-        scaleX: 1,
-        duration: 0.8,
-        stagger: 0.15
-      })
-
-      // Título
-      .to(partnersTitle, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      }, "-=0.4")
-
-      // Subtítulo
-      .to(partnersSubtitle, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6
-      }, "-=0.4")
-
-      // Carrossel
-      .to(partnersCarouselTrack, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9
-      }, "-=0.3");
-
-    // =========================
-    // MICRO FLOAT NO CARROSSEL
-    // =========================
-    ScrollTrigger.create({
-      trigger: partnersCarouselSection,
-      start: "top 70%",
-      once: true,
-      onEnter: () => {
-        gsap.to(partnersCarouselTrack, {
-          y: -10,
-          duration: 3.5,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true
-        });
-      }
-    });
-
+  function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const lenis = new Lenis({
-        duration: 1.2,
-        })
-
-    lenis.on('scroll', (e) => {
-      console.log(e)
-    })
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-  })
+  requestAnimationFrame(raf)
+})

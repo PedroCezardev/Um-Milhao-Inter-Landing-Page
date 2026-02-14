@@ -155,162 +155,162 @@ void main(){
 
 // --- SETUP PRINCIPAL ---
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('grid-canvas-container');
-    if (!container) return;
+  const container = document.getElementById('grid-canvas-container');
+  if (!container) return;
 
-    // Configurações Estáticas do Grid
-    const options = {
-        sensitivity: 0.55,
-        lineThickness: 1.5,
-        linesColor: "#b8b8b8", // Mesma cor do fundo: remove a 3ª linha (grade adormecida)
-        scanColor: "#ffa600",  // Sua cor exata (--color-primaria)
-        scanOpacity: 0.8,
-        gridScale: 0.1,
-        lineStyle: 0, 
-        lineJitter: 0.0,
-        scanDirection: 2, 
-        bloomIntensity: 1.0, // Reduzido de 1.2 para 1.0 para o laranja não "queimar" pro vermelho
-        chromaticAberration: 0.0, // ZERADO: Remove a linha "fantasma" duplicada
-        noiseIntensity: 0.02,
-        scanGlow: 0.5,
-        scanSoftness: 2.0,
-        scanPhaseTaper: 0.9,
-        scanDuration: 2.0,
-        scanDelay: 1.0,
-    };
+  // Configurações Estáticas do Grid
+  const options = {
+    sensitivity: 0.55,
+    lineThickness: 1.5,
+    linesColor: "#b8b8b8", // Mesma cor do fundo: remove a 3ª linha (grade adormecida)
+    scanColor: "#ffa600",  // Sua cor exata (--color-primaria)
+    scanOpacity: 0.8,
+    gridScale: 0.1,
+    lineStyle: 0,
+    lineJitter: 0.0,
+    scanDirection: 2,
+    bloomIntensity: 1.0, // Reduzido de 1.2 para 1.0 para o laranja não "queimar" pro vermelho
+    chromaticAberration: 0.0, // ZERADO: Remove a linha "fantasma" duplicada
+    noiseIntensity: 0.02,
+    scanGlow: 0.5,
+    scanSoftness: 2.0,
+    scanPhaseTaper: 0.9,
+    scanDuration: 2.0,
+    scanDelay: 1.0,
+  };
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.autoClear = false;
+  renderer.setClearColor(0x000000, 0);
+  container.appendChild(renderer.domElement);
+
+  function srgbColor(hex) {
+    const c = new THREE.Color(hex);
+    return c.convertSRGBToLinear();
+  }
+
+  const uniforms = {
+    iResolution: { value: new THREE.Vector3(container.clientWidth, container.clientHeight, renderer.getPixelRatio()) },
+    iTime: { value: 0 },
+    uSkew: { value: new THREE.Vector2(0, 0) },
+    uTilt: { value: 0 },
+    uYaw: { value: 0 },
+    uLineThickness: { value: options.lineThickness },
+    uLinesColor: { value: srgbColor(options.linesColor) },
+    uScanColor: { value: srgbColor(options.scanColor) },
+    uGridScale: { value: options.gridScale },
+    uLineStyle: { value: options.lineStyle },
+    uLineJitter: { value: options.lineJitter },
+    uScanOpacity: { value: options.scanOpacity },
+    uNoise: { value: options.noiseIntensity },
+    uBloomOpacity: { value: options.bloomIntensity },
+    uScanGlow: { value: options.scanGlow },
+    uScanSoftness: { value: options.scanSoftness },
+    uPhaseTaper: { value: options.scanPhaseTaper },
+    uScanDuration: { value: options.scanDuration },
+    uScanDelay: { value: options.scanDelay },
+    uScanDirection: { value: options.scanDirection },
+    uScanStarts: { value: new Array(8).fill(0) },
+    uScanCount: { value: 0 }
+  };
+
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: vert,
+    fragmentShader: frag,
+    transparent: true,
+    depthWrite: false,
+    depthTest: false
+  });
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+  scene.add(quad);
+
+  // Efeitos de Pós Processamento
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+
+  const bloom = new BloomEffect({ intensity: 1.0, luminanceThreshold: 0, luminanceSmoothing: 0 });
+  bloom.blendMode.opacity.value = options.bloomIntensity;
+
+  const chroma = new ChromaticAberrationEffect({
+    offset: new THREE.Vector2(options.chromaticAberration, options.chromaticAberration),
+    radialModulation: true,
+    modulationOffset: 0.0
+  });
+
+  const effectPass = new EffectPass(camera, bloom, chroma);
+  effectPass.renderToScreen = true;
+  composer.addPass(effectPass);
+
+  // Atualiza o tamanho se a janela mudar
+  window.addEventListener('resize', () => {
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.autoClear = false;
-    renderer.setClearColor(0x000000, 0);
-    container.appendChild(renderer.domElement);
+    composer.setSize(container.clientWidth, container.clientHeight);
+    material.uniforms.iResolution.value.set(container.clientWidth, container.clientHeight, renderer.getPixelRatio());
+  });
 
-    function srgbColor(hex) {
-        const c = new THREE.Color(hex);
-        return c.convertSRGBToLinear();
-    }
+  let lastTime = performance.now();
 
-    const uniforms = {
-        iResolution: { value: new THREE.Vector3(container.clientWidth, container.clientHeight, renderer.getPixelRatio()) },
-        iTime: { value: 0 },
-        uSkew: { value: new THREE.Vector2(0, 0) },
-        uTilt: { value: 0 },
-        uYaw: { value: 0 },
-        uLineThickness: { value: options.lineThickness },
-        uLinesColor: { value: srgbColor(options.linesColor) },
-        uScanColor: { value: srgbColor(options.scanColor) },
-        uGridScale: { value: options.gridScale },
-        uLineStyle: { value: options.lineStyle },
-        uLineJitter: { value: options.lineJitter },
-        uScanOpacity: { value: options.scanOpacity },
-        uNoise: { value: options.noiseIntensity },
-        uBloomOpacity: { value: options.bloomIntensity },
-        uScanGlow: { value: options.scanGlow },
-        uScanSoftness: { value: options.scanSoftness },
-        uPhaseTaper: { value: options.scanPhaseTaper },
-        uScanDuration: { value: options.scanDuration },
-        uScanDelay: { value: options.scanDelay },
-        uScanDirection: { value: options.scanDirection },
-        uScanStarts: { value: new Array(8).fill(0) },
-        uScanCount: { value: 0 }
-    };
+  function tick() {
+    const now = performance.now();
+    const dt = Math.max(0, Math.min(0.1, (now - lastTime) / 1000));
+    lastTime = now;
 
-    const material = new THREE.ShaderMaterial({
-        uniforms,
-        vertexShader: vert,
-        fragmentShader: frag,
-        transparent: true,
-        depthWrite: false,
-        depthTest: false
+    // Trava a perspectiva do grid no centro exato (sem distorção de mouse)
+    material.uniforms.uSkew.value.set(0, 0);
+
+    // Passa o tempo para a animação do scanner continuar rodando
+    material.uniforms.iTime.value = now / 1000;
+
+    composer.render(dt);
+    requestAnimationFrame(tick);
+  }
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+
+  const revealText = document.getElementById('reveal-text');
+  const sectReveal = document.getElementById('sect-reveal');
+
+  if (revealText && sectReveal) {
+    const words = revealText.innerText.split(/(\s+)/);
+    revealText.innerHTML = '';
+
+    words.forEach(word => {
+      if (word.match(/^\s+$/)) {
+        revealText.appendChild(document.createTextNode(word));
+      } else {
+        const span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = word;
+        span.style.opacity = '0.1';
+        span.style.filter = 'blur(8px)';
+        span.style.willChange = 'opacity, filter';
+        revealText.appendChild(span);
+      }
     });
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-    scene.add(quad);
+    const wordElements = revealText.querySelectorAll('.word');
 
-    // Efeitos de Pós Processamento
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-
-    const bloom = new BloomEffect({ intensity: 1.0, luminanceThreshold: 0, luminanceSmoothing: 0 });
-    bloom.blendMode.opacity.value = options.bloomIntensity;
-    
-    const chroma = new ChromaticAberrationEffect({
-        offset: new THREE.Vector2(options.chromaticAberration, options.chromaticAberration),
-        radialModulation: true,
-        modulationOffset: 0.0
+    window.gsap.to(wordElements, {
+      ease: 'none',
+      opacity: 1,
+      filter: 'blur(0px)',
+      stagger: 0.05,
+      scrollTrigger: {
+        trigger: sectReveal,
+        start: 'top 70%',
+        end: 'center center',
+        scrub: 1
+      }
     });
+  }
 
-    const effectPass = new EffectPass(camera, bloom, chroma);
-    effectPass.renderToScreen = true;
-    composer.addPass(effectPass);
-
-    // Atualiza o tamanho se a janela mudar
-    window.addEventListener('resize', () => {
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        composer.setSize(container.clientWidth, container.clientHeight);
-        material.uniforms.iResolution.value.set(container.clientWidth, container.clientHeight, renderer.getPixelRatio());
-    });
-
-    let lastTime = performance.now();
-
-    function tick() {
-        const now = performance.now();
-        const dt = Math.max(0, Math.min(0.1, (now - lastTime) / 1000));
-        lastTime = now;
-
-        // Trava a perspectiva do grid no centro exato (sem distorção de mouse)
-        material.uniforms.uSkew.value.set(0, 0);
-        
-        // Passa o tempo para a animação do scanner continuar rodando
-        material.uniforms.iTime.value = now / 1000;
-
-        composer.render(dt);
-        requestAnimationFrame(tick);
-    }
-
-    window.gsap.registerPlugin(window.ScrollTrigger);
-
-    const revealText = document.getElementById('reveal-text');
-    const sectReveal = document.getElementById('sect-reveal'); 
-    
-    if (revealText && sectReveal) {
-      const words = revealText.innerText.split(/(\s+)/);
-      revealText.innerHTML = '';
-
-      words.forEach(word => {
-        if (word.match(/^\s+$/)) {
-          revealText.appendChild(document.createTextNode(word));
-        } else {
-          const span = document.createElement('span');
-          span.className = 'word';
-          span.textContent = word;
-          span.style.opacity = '0.1';
-          span.style.filter = 'blur(8px)';
-          span.style.willChange = 'opacity, filter';
-          revealText.appendChild(span);
-        }
-      });
-
-      const wordElements = revealText.querySelectorAll('.word');
-
-      window.gsap.to(wordElements, {
-        ease: 'none',
-        opacity: 1,
-        filter: 'blur(0px)',
-        stagger: 0.05, 
-        scrollTrigger: {
-          trigger: sectReveal,      
-          start: 'top 70%',         
-          end: 'center center',     
-          scrub: 1                  
-        }
-      });
-    }
-    
-    // Inicia o loop
-    tick();
+  // Inicia o loop
+  tick();
 });
