@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) window.lucide.createIcons();
 
   // Inicializa Módulos
-  initNavbar();
+  initPreloader();  
   initMobileMenu();
   initHeroAnimations();
   initVelocityScroll();
@@ -21,6 +21,55 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyScrollReveal();
   initBenefitsTimeline();
 });
+
+// =============================================================================
+// PRELOADER PREMIUM
+// =============================================================================
+function initPreloader() {
+  const preloader = document.getElementById("preloader");
+  const counter = document.getElementById("preloader-counter");
+  const bar = document.getElementById("preloader-bar");
+  const text = document.getElementById("preloader-text");
+
+  if (!preloader) {
+    initNavbar(); // Se não tiver preloader, roda direto
+    initHeroAnimations(); 
+    return;
+  }
+
+  document.body.style.overflow = 'hidden';
+
+  const tl = gsap.timeline(); // Apague qualquer onComplete que estiver solto aqui dentro
+  let cont = { val: 0 };
+
+  tl.to(cont, {
+    val: 100,
+    duration: 2.2,
+    ease: "power4.inOut",
+    onUpdate: () => {
+      counter.innerHTML = Math.round(cont.val) + "%";
+    }
+  }, 0)
+  .to(bar, { width: "100%", duration: 2.2, ease: "power4.inOut" }, 0)
+  .to(text, { opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 1.8)
+  .to(counter, { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 1.9)
+  .to(preloader, {
+    yPercent: -100,
+    duration: 1.2, // Deixei um tiquinho mais suave (1.2 em vez de 1)
+    ease: "expo.inOut",
+    onStart: () => {
+      // === A MÁGICA ESTÁ AQUI ===
+      // Dispara as animações junto com o movimento da cortina
+      initNavbar();
+      initHeroAnimations();
+    },
+    onComplete: () => {
+      preloader.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.overflowX = 'hidden';
+    }
+  }, "+=0.1"); // "+=0.1" dá um respiro de 100ms no 100% antes de ejetar a tela
+}
 
 // =============================================================================
 // 1. NAVBAR
@@ -78,7 +127,7 @@ function initHeroAnimations() {
   
   if (!heroTitle) return;
 
-  const tl = gsap.timeline({ delay: 0.3, defaults: { ease: "power4.out" } });
+  const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
   if(heroVideo) gsap.set(heroVideo, { scale: 1.15, filter: "blur(10px)", opacity: 0 });
   

@@ -326,7 +326,6 @@ body {
   left: 50%;
   right: 0;
   bottom: 0;
-  background: #ff7900;
   pointer-events: none;
   z-index: 0;
   animation: benefitsGradientShift 20s ease-in-out infinite;
