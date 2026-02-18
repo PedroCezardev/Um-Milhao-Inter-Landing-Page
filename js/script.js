@@ -381,3 +381,53 @@ function initGlobalReveals() {
     );
   });
 }
+
+// =============================================================================
+// CONFIGURAÇÃO: LENIS (SCROLL SUAVE) + GSAP SCROLLTRIGGER
+// =============================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // 1. Inicia o GSAP ScrollTrigger
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  // 2. Inicia o Lenis (O motor do Scroll Premium)
+  if (window.Lenis) {
+    const lenis = new Lenis({
+      // A MÁGICA ESTÁ AQUI: Trocamos o "duration" pelo "lerp" (interpolação linear)
+      // O lerp dita a "fricção". 0.1 é o padrão ouro: responde rápido e desliza suave.
+      lerp: 0.1, 
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    // Avisa ao ScrollTrigger que o scroll mudou
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Sincroniza o relógio do Lenis com o relógio do GSAP (Sem engasgos)
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    // Desliga o lag smoothing padrão do GSAP para não brigar com o Lenis
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // 3. Inicializa Ícones
+  if (window.lucide) window.lucide.createIcons();
+
+  // 4. Inicializa os Módulos do site
+  initPreloader();  
+  initMobileMenu();
+  initVelocityScroll();
+  initPartnersCarousel();
+  initStickyScrollReveal();
+  initBenefitsTimeline();
+  initGlobalReveals();
+});
+
+// Daqui pra baixo, o seu código continua EXATAMENTE IGUAL:
+// function initPreloader() { ... }
+// ...

@@ -18,7 +18,6 @@
 
 html {
   font-family: var(--font-family);
-  scroll-behavior: smooth;
 }
 
 body {
