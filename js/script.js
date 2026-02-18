@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initAnimatedCardsSection();
   initStickyScrollReveal();
   initBenefitsTimeline();
+  initGlobalReveals();
 });
 
 // =============================================================================
@@ -333,4 +334,50 @@ function initPartnersCarousel() {
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, scrollTrigger: { trigger: section, start: "top 80%" } }
   );
+}
+
+// =============================================================================
+// NOVO: SISTEMA UNIVERSAL DE REVEAL (ENTRADA SUAVE)
+// =============================================================================
+function initGlobalReveals() {
+  // 1. Elementos Isolados (Sobem suavemente um por um)
+  const revealUpElements = gsap.utils.toArray('.reveal-up');
+  revealUpElements.forEach((el) => {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 50 }, 
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.8, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%", // Dispara quando o elemento atinge 85% da tela
+          toggleActions: "play none none none" // Anima só uma vez
+        }
+      }
+    );
+  });
+
+  // 2. Grupos com Delay/Stagger (Ex: Grid de Cartões, Listas)
+  const revealGroups = gsap.utils.toArray('.reveal-group');
+  revealGroups.forEach((group) => {
+    const items = group.querySelectorAll('.reveal-item');
+    if (!items.length) return;
+
+    gsap.fromTo(items, 
+      { opacity: 0, y: 40 }, 
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.8, 
+        ease: "power3.out",
+        stagger: 0.15, // O SEGREDO DO DELAY: Cada item entra 0.15s depois do outro
+        scrollTrigger: {
+          trigger: group,
+          start: "top 80%",
+        }
+      }
+    );
+  });
 }

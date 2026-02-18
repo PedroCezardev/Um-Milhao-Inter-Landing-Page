@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inter Clone</title>
+  <title>Inter. Landing Page.</title>
+  <meta name="description" content="Simplifique sua vida financeira com o Super App do Inter." />
+  <link rel="icon" type="image/png" href="imgs/favicon.png" />
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
@@ -210,26 +212,23 @@
   <section class="bg-white py-20 px-6 md:px-12 lg:px-20 cards-section">
     <div class="max-w-7xl mx-auto">
 
-      <!-- Header -->
-      <div class="text-center mb-16 cards-header">
-        <span class="inline-block px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-medium mb-4">
+      <div class="text-center mb-16 cards-header reveal-group">
+        <span class="inline-block px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-medium mb-4 reveal-item">
           Cartões Inter
         </span>
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 reveal-item">
           Escolha o cartão ideal para você
         </h2>
-        <p class="text-gray-500 text-lg max-w-2xl mx-auto">
+        <p class="text-gray-500 text-lg max-w-2xl mx-auto reveal-item">
           Do básico ao premium, temos o cartão perfeito para cada momento da sua vida financeira.
         </p>
       </div>
 
-      <!-- Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 cards-grid">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 cards-grid reveal-group">
 
-        <!-- Card 1 -->
-        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer">
+        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer reveal-item">
           <div class="relative mb-6 flex justify-center card-image">
-            <img src="imgs/inter.png" class="w-40" alt="">
+            <img src="imgs/inter.png" class="w-40" alt="" width="160" height="100">
           </div>
           <div class="text-center">
             <h3 class="text-xl font-bold text-gray-900 mb-2">Inter</h3>
@@ -245,10 +244,9 @@
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer">
+        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer reveal-item">
           <div class="relative mb-6 flex justify-center card-image">
-            <img src="imgs/inter-gold.png" class="w-40" alt="">
+            <img src="imgs/inter-gold.png" class="w-40" alt="" width="160" height="100">
           </div>
           <div class="text-center">
             <h3 class="text-xl font-bold text-gray-900 mb-2">Inter Gold</h3>
@@ -264,10 +262,9 @@
           </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer">
+        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer reveal-item">
           <div class="relative mb-6 flex justify-center card-image">
-            <img src="imgs/inter-silver.png" class="w-40" alt="">
+            <img src="imgs/inter-silver.png" class="w-40" alt="" width="160" height="100">
           </div>
           <div class="text-center">
             <h3 class="text-xl font-bold text-gray-900 mb-2">Inter Platinum</h3>
@@ -283,10 +280,9 @@
           </div>
         </div>
 
-        <!-- Card 4 -->
-        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer">
+        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer reveal-item">
           <div class="relative mb-6 flex justify-center card-image">
-            <img src="imgs/inter-black.png" class="w-40" alt="">
+            <img src="imgs/inter-black.png" class="w-40" alt="" width="160" height="100">
           </div>
           <div class="text-center">
             <h3 class="text-xl font-bold text-gray-900 mb-2">Inter Black</h3>
@@ -302,10 +298,9 @@
           </div>
         </div>
 
-        <!-- Card 5 -->
-        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer">
+        <div class="group card-anim relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl cursor-pointer reveal-item">
           <div class="relative mb-6 flex justify-center card-image">
-            <img src="imgs/inter-win.png" class="w-40" alt="">
+            <img src="imgs/inter-win.png" class="w-40" alt="" width="160" height="100">
           </div>
           <div class="text-center">
             <h3 class="text-xl font-bold text-gray-900 mb-2">Inter Win</h3>
@@ -323,8 +318,7 @@
 
       </div>
 
-      <!-- Bottom CTA -->
-      <div class="mt-16 text-center cards-cta">
+      <div class="mt-16 text-center cards-cta reveal-up">
         <p class="text-gray-500 mb-4">Ainda em dúvida? Compare todos os benefícios</p>
         <button
           class="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-orange-500 text-orange-500 font-semibold">
@@ -339,94 +333,93 @@
   <section class="py-12 mt-20 bg-white relative">
     <div class="max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-6">
 
-      <!-- Left -->
       <div class="relative h-[400px] lg:h-auto w-full lg:static">
         <div
           class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-[65%] lg:w-[40vw] lg:max-w-[680px] z-10 flex items-center justify-start pointer-events-none">
-          <img src="imgs/bg1.webp" alt="App Inter Interface" class="w-full h-auto object-contain origin-bottom-left" />
+          <img src="imgs/bg1.webp" alt="App Inter Interface" class="w-full h-auto object-contain origin-bottom-left reveal-up" width="680" height="750" />
         </div>
       </div>
 
-      <!-- Right -->
       <div class="w-full lg:pl-10 z-20 flex flex-col justify-center">
         <div class="">
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+          
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight reveal-up">
             Invista do seu jeito. <br />
             <span class="text-[#FF7A00]">Onde estiver.</span>
           </h2>
 
-          <p class="text-gray-500 text-lg mb-10 max-w-lg leading-relaxed">
+          <p class="text-gray-500 text-lg mb-10 max-w-lg leading-relaxed reveal-up">
             Com o app, você acompanha sua carteira, faz aportes e encontra as melhores oportunidades sem complicação.
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 pl-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 pl-2 reveal-group">
 
-            <div class="card-feature">
+            <div class="card-feature reveal-item">
               <div class="side-bar"></div>
               <p class="feature-text">Acompanhe sua carteira em tempo real</p>
             </div>
 
-            <div class="card-feature">
+            <div class="card-feature reveal-item">
               <div class="side-bar"></div>
               <p class="feature-text">Invista nos principais produtos do mercado</p>
             </div>
 
-            <div class="card-feature">
+            <div class="card-feature reveal-item">
               <div class="side-bar"></div>
               <p class="feature-text">Depósitos e resgates sem burocracia</p>
             </div>
 
-            <div class="card-feature">
+            <div class="card-feature reveal-item">
               <div class="side-bar"></div>
               <p class="feature-text">Relatórios completos para decisões melhores</p>
             </div>
 
           </div>
 
-          <div class="flex gap-4">
+          <div class="flex gap-4 reveal-up">
             <a
               class="bg-gradient-to-r from-orange-500 to-orange-400 cursor-pointer text-white px-10 py-4 rounded-full font-bold flex items-center gap-2">
               Abra sua conta <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
+          
         </div>
       </div>
   </section>
 
   <!-- Cartões Orange Section -->
-  <section class="bg-[#171717] py-24 px-6 md:px-12 text-white relative overflow-hidden animated-section" style="
+  <section class="bg-[#171717] py-24 px-6 md:px-12 text-white relative overflow-hidden" style="
     background-image: url('imgs/bg2.webp');
     background-size: 50%;
     background-position: right;
     background-repeat: no-repeat;
   ">
-    <!-- Overlay -->
     <div class="overlay absolute inset-0 bg-black/40 z-0"></div>
 
-    <!-- Conteúdo topo -->
     <div class="max-w-7xl mx-auto flex flex-col items-start mb-24 relative z-10 w-full">
-      <div class="w-full lg:w-3/5 pt-10 text-left">
+      
+      <div class="w-full lg:w-3/5 pt-10 text-left reveal-group">
 
-        <div class="hero-logo mb-10">
-          <img src="imgs/logo-inter.png" alt="Inter Logo" class="h-10 w-auto" />
+        <div class="hero-logo mb-10 reveal-item">
+          <img src="imgs/logo-inter.png" alt="Inter Logo" class="h-10 w-auto" width="140" height="40" />
         </div>
 
-        <h2 class="hero-title text-7xl md:text-8xl lg:text-[120px] font-black mb-8 tracking-tighter leading-[0.9]">
+        <h2 class="hero-title text-7xl md:text-8xl lg:text-[120px] font-black mb-8 tracking-tighter leading-[0.9] reveal-item">
           É fácil!
         </h2>
 
-        <p class="hero-text mb-8 text-gray-300 text-lg md:text-xl max-w-[440px] leading-snug">
+        <p class="hero-text mb-8 text-gray-300 text-lg md:text-xl max-w-[440px] leading-snug reveal-item">
           Abra sua conta digital e tenha acesso a uma ampla gama de serviços. Assuma o controle de suas finanças de uma
           maneira moderna.
         </p>
       </div>
     </div>
 
-    <!-- Cards -->
     <div class="max-w-7xl mx-auto relative z-10">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full reveal-group">
 
-        <div class="glass-card" id="card-2">
+        <div class="glass-card reveal-item">
           <div class="icon-box">
             <i class="bi bi-bank2 text-orange-400 text-3xl"></i>
           </div>
@@ -436,7 +429,7 @@
           </p>
         </div>
 
-        <div class="glass-card" id="card-2">
+        <div class="glass-card reveal-item">
           <div class="icon-box">
             <i class="bi bi-graph-up text-orange-400 text-3xl"></i>
           </div>
@@ -446,7 +439,7 @@
           </p>
         </div>
 
-        <div class="glass-card" id="card-2">
+        <div class="glass-card reveal-item">
           <div class="icon-box">
             <i class="bi bi-cash-coin text-orange-400 text-3xl"></i>
           </div>
@@ -456,7 +449,7 @@
           </p>
         </div>
 
-        <div class="glass-card" id="card-2">
+        <div class="glass-card reveal-item">
           <div class="icon-box">
             <i class="bi bi-shield-fill-check text-orange-400 text-3xl"></i>
           </div>
@@ -471,21 +464,21 @@
   </section>
 
   <!-- Grid Scan Container -->
-  <section class="relative  w-full flex flex-col items-center justify-center overflow-hidden"
+  <section class="relative w-full flex flex-col items-center justify-center overflow-hidden"
     style="background-color: #171717; height: 100vh; min-height: 100vh;" id="sect-reveal">
 
     <div id="grid-canvas-container" class="absolute inset-0 z-0 w-full h-full pointer-events-auto"></div>
     <div class="absolute inset-0 z-0 pointer-events-none"
       style="background: radial-gradient(circle at center, transparent 20%, #171717 90%);"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pointer-events-none flex flex-col items-center">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pointer-events-none flex flex-col items-center reveal-group">
 
       <span
-        class="bg-gradient-to-r from-[#FF7A00] to-[#FF5500] text-white px-10 py-5 rounded-full font-bold text-lg flex items-center gap-3">
-        Liberdade Financeira <i data-lucide="scan-line" class="w-4 h-4 inline-block mr-2 -mt-1"></i>
+        class="bg-transparent border border-white/50 text-white px-6 py-2 rounded-full font-bold text-sm tracking-widest uppercase flex items-center gap-2 mb-6 backdrop-blur-sm reveal-item">
+        Liberdade Financeira <i data-lucide="scan-line" class="w-4 h-4"></i>
       </span>
 
-      <div style="max-width: 900px; width: 100%; margin: 20px auto;">
+      <div style="max-width: 900px; width: 100%; margin: 20px auto;" class="reveal-item">
         <h2 id="reveal-text"
           class="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight mb-12 text-center"
           style="font-size: clamp(2rem, 5vw, 3rem);">
@@ -495,7 +488,7 @@
       </div>
 
       <a href="#Beneficios"
-        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FF7A00]/10 border border-[#FF7A00]/30 text-[#FF7A00] text-sm font-bold mb-8 uppercase tracking-widest backdrop-blur-sm cursor-pointer hover:bg-[#FF7A00]/20 transition-colors shadow-[0_0_30px_rgba(255,122,0,0.3)] hover:-translate-y-1 hover:shadow-[0_0_50px_rgba(255,122,0,0.6)] transition-all duration-300">
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#FF7A00]/10 border border-[#FF7A00]/30 text-[#FF7A00] text-sm font-bold mb-8 uppercase tracking-widest backdrop-blur-sm cursor-pointer hover:bg-[#FF7A00]/20 transition-colors shadow-[0_0_30px_rgba(255,122,0,0.3)] hover:-translate-y-1 hover:shadow-[0_0_50px_rgba(255,122,0,0.6)] transition-all duration-300 pointer-events-auto reveal-item">
         Quero ser Inter
         <i data-lucide="arrow-down" class="w-4 h-4"></i>
       </a>
@@ -503,20 +496,22 @@
   </section>
 
   <!-- Ecossistema Container -->
-  <section class="carousel-section pt-32 pb-20">
+  <section class="carousel-section pt-32 pb-20 reveal-group">
     
     <div class="w-full max-w-7xl mx-auto px-6 text-center mb-12">
-      <div class="title-wrapper flex justify-center items-center gap-4 mb-3">
+      
+      <div class="title-wrapper flex justify-center items-center gap-4 mb-3 reveal-item">
         <div class="line w-8 h-[2px] bg-[#FF7A00]"></div>
         <h2 class="text-2xl md:text-3xl font-bold text-white">Ecossistema de parceiros</h2>
         <div class="line w-8 h-[2px] bg-[#FF7A00]"></div>
       </div>
-      <p class="text-gray-400 text-base md:text-lg">
+      
+      <p class="text-gray-400 text-base md:text-lg reveal-item">
         Construindo o futuro do turismo em colaboração
       </p>
     </div>
 
-    <div class="carousel-wrapper relative">
+    <div class="carousel-wrapper relative reveal-item">
       <div class="gradient-left"></div>
       <div class="gradient-right"></div>
 
@@ -575,26 +570,25 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
 
-      <!-- Mockup do App -->
-      <div id="phoneMockup" class="">
-        <img src="imgs/mockupcel.png" alt="Mockup do App">
+      <div id="phoneMockup" class="reveal-up">
+        <img src="imgs/mockupcel.png" alt="Mockup do App" width="600" height="800">
       </div>
 
-      <!-- Texto -->
-      <div id="contentBlock" class="">
-        <span class="inline-block mb-4 px-4 py-2 rounded-full bg-orange-400/10 text-orange-500 text-sm font-medium">
+      <div id="contentBlock" class="reveal-group">
+        
+        <span class="inline-block mb-4 px-4 py-2 rounded-full bg-orange-400/10 text-orange-500 text-sm font-medium reveal-item">
           Super App
         </span>
 
-        <h2 class="text-4xl text-white md:text-5xl font-black mb-6 leading-tight">
+        <h2 class="text-4xl text-white md:text-5xl font-black mb-6 leading-tight reveal-item">
           Baixe o app e tenha um <span class="text-orange-500">banco completo</span> no bolso
         </h2>
 
-        <p class="text-lg text-muted-foreground mb-8">
+        <p class="text-lg text-muted-foreground mb-8 reveal-item">
           Mais de 30 milhões de pessoas já transformaram sua relação com dinheiro usando o Inter.
         </p>
 
-        <div class="flex gap-4 mb-8">
+        <div class="flex gap-4 mb-8 reveal-item">
           <button class="h-14 px-6 rounded-xl bg-inter-dark border border-white/40 flex items-center gap-3">
             <i class="bi bi-apple text-2xl text-white"></i>
             <div class="text-left">
@@ -612,7 +606,7 @@
           </button>
         </div>
 
-        <div class="flex items-center gap-6 text-muted-foreground">
+        <div class="flex items-center gap-6 text-muted-foreground reveal-item">
           <div class="flex -space-x-2">
             <div class="h-10 w-10 bg-inter-gray rounded-full border-2 border-inter-darker"></div>
             <div class="h-10 w-10 bg-inter-gray rounded-full border-2 border-inter-darker"></div>
@@ -637,7 +631,7 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
 
       <div
-        class="flex flex-col md:flex-row justify-between items-center p-8 md:p-12 rounded-3xl mb-16 relative overflow-hidden bg-[#141414] border border-white/5 transition-colors hover:border-[#FF7A00]/50">
+        class="flex flex-col md:flex-row justify-between items-center p-8 md:p-12 rounded-3xl mb-16 relative overflow-hidden bg-[#141414] border border-white/5 transition-colors hover:border-[#FF7A00]/50 reveal-up">
         <div class="absolute inset-0 opacity-50 bg-gradient-to-r from-[#FF7A00]/10 to-transparent"></div>
 
         <div class="relative z-10 mb-8 md:mb-0 text-center md:text-left">
@@ -651,10 +645,10 @@
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16 reveal-group">
 
-        <div class="lg:col-span-4">
-          <img src="imgs/logo-inter.png" alt="Logo Inter" class="mb-6 h-8 object-contain" />
+        <div class="lg:col-span-4 reveal-item">
+          <img src="imgs/logo-inter.png" alt="Logo Inter" class="mb-6 h-8 object-contain" width="110" height="32" />
 
           <p class="text-gray-400 text-sm leading-relaxed mb-8 pr-4">
             O Super App financeiro que simplifica a sua vida. Conta digital, cartão de crédito, investimentos e shopping
@@ -681,18 +675,17 @@
           </div>
         </div>
 
-        <div class="lg:col-span-2 lg:col-start-7">
+        <div class="lg:col-span-2 lg:col-start-7 reveal-item">
           <h4 class="text-white font-bold mb-6 tracking-wide">Para Você</h4>
           <ul class="flex flex-col gap-4">
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Conta Digital</a></li>
-            <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Cartão de Crédito</a>
-            </li>
+            <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Cartão de Crédito</a></li>
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Investimentos</a></li>
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Empréstimos</a></li>
           </ul>
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 reveal-item">
           <h4 class="text-white font-bold mb-6 tracking-wide">A Empresa</h4>
           <ul class="flex flex-col gap-4">
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Sobre o Inter</a></li>
@@ -701,11 +694,10 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 reveal-item">
           <h4 class="text-white font-bold mb-6 tracking-wide">Ajuda</h4>
           <ul class="flex flex-col gap-4">
-            <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Central de Ajuda</a>
-            </li>
+            <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Central de Ajuda</a></li>
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Ouvidoria</a></li>
             <li><a href="#" class="text-sm text-gray-400 hover:text-[#FF7A00] transition-colors">Segurança</a></li>
           </ul>
@@ -713,7 +705,7 @@
 
       </div>
 
-      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10">
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10 reveal-up">
         <p class="text-gray-500 text-xs text-center md:text-left leading-relaxed">
           © 2026 Banco Inter S.A. CNPJ: 18.236.120/0001-58<br>
           Av. Barbacena, 1219 - Santo Agostinho, Belo Horizonte/MG
